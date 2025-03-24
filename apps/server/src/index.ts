@@ -8,3 +8,5 @@ async function init() {
         console.log("HTTP Server started at PORT:",PORT)
     })
 }
+
+init()
