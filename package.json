@@ -1,5 +1,5 @@
 {
-  "name": "my-turborepo",
+  "name": "scalabale-chat-app",
   "private": true,
   "scripts": {
     "build": "turbo run build",
