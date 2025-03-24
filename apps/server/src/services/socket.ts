@@ -12,6 +12,18 @@ class SocketService {
         return this._io;
     }
 
+    public initListeners(){
+        const io = this._io
+        console.log("Init Socket Listeners...")
+
+        io.on("connect",(socket) => {
+            console.log("New Socket connected", socket.id)
+            socket.on("event:message", async ({message}:{message:string})=>{
+                console.log("New message received ",message)
+            })
+        })
+    }
+
 }
 
 export default SocketService;
