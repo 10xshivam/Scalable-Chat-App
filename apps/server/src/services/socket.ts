@@ -46,6 +46,7 @@ class SocketService {
             })
         })
         sub.on('message',async (channel,message) => {
+            console.log("new message from redis",message)
             if(channel==='MESSAGES'){
                 io.emit('message',message)
             }
