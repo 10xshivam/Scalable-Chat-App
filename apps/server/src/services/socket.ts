@@ -1,19 +1,15 @@
 import { Server } from "socket.io";
 import Redis from 'ioredis'
 
+const redisConfig = {
+    host: process.env.REDIS_HOST,
+    port: parseInt(process.env.REDIS_PORT || '6379'),
+    username: process.env.REDIS_USERNAME,
+    password: process.env.REDIS_PASSWORD
+};
 
-const pub = new Redis({
-    host: 'valkey-2c30c332-chatapp-90a2.f.aivencloud.com',
-    port: 27888,
-    username: 'default',
-    password: 'AVNS_YkTje2rq1-nXPFkNHTl'
-})
-const sub = new Redis({
-    host: 'valkey-2c30c332-chatapp-90a2.f.aivencloud.com',
-    port: 27888,
-    username: 'default',
-    password: 'AVNS_YkTje2rq1-nXPFkNHTl'
-})
+const pub = new Redis(redisConfig);
+const sub = new Redis(redisConfig);
 
 class SocketService {
     private _io:Server
