@@ -1,10 +1,17 @@
 import { Server } from "socket.io";
-import Redis from 'ioredis'
+import Redis from 'ioredis';
+import fs from 'fs';
+import path from 'path';
 import prismaClient from "./prisma";
+import { produceMessage } from "./kafka";
+import dotenv from 'dotenv';
+
+// Initialize dotenv
+dotenv.config();
 
 const redisConfig = {
-    host: process.env.REDIS_HOST,
-    port: parseInt(process.env.REDIS_PORT!),
+    host: process.env.REDIS_HOST || "localhost",
+    port: parseInt(process.env.REDIS_PORT || "6379"),
     username: process.env.REDIS_USERNAME,
     password: process.env.REDIS_PASSWORD
 };
@@ -46,11 +53,8 @@ class SocketService {
             console.log("new message from redis",message)
             if(channel==='MESSAGES'){
                 io.emit('message',message)
-                await prismaClient.message.create({
-                    data:{
-                        text:message
-                    }
-                })
+                await produceMessage(message)
+                console.log('Message Produced to Kafka Broker')
             }
         })
     }
