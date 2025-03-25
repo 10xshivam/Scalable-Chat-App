@@ -1,6 +1,6 @@
 "use client"
-import React, { useCallback, useEffect,useContext } from "react"
-import { io } from "socket.io-client"
+import React, { useCallback, useEffect, useContext, useState } from "react"
+import { io, Socket } from "socket.io-client"
 
 interface SocketProviderProps {
     children?:React.ReactNode
@@ -13,26 +13,33 @@ interface ISocketContext {
 const SocketContext = React.createContext<ISocketContext | null>(null);
 
 export const useSocket = () => {
-    const state =  useContext(SocketContext)
+    const state =  useContext(SocketContext);
     if(!state) throw new Error('state is undefined')
 
-    return state
+    return state;
 }
 
 export const SocketProvider:React.FC<SocketProviderProps> = ({children}) => {
+    const [socket, setSocket] = useState<Socket | null>(null);
+    
     const sendMessage:ISocketContext['sendMessage'] = useCallback((msg) => {
-        console.log("Send Message",msg)
-    },[])
+        console.log("Send Message", msg);
+        if(socket) {
+            socket.emit('event:message', {message:msg});
+        }
+    },[socket])
 
     useEffect(() => {
-        const _socket = io('http://localhost:8000')
+        const _socket = io('http://localhost:8000');
+        setSocket(_socket);
 
         return () => {
             _socket.disconnect()
         }
     },[])
+    
     return (
-        <SocketContext.Provider value={null}>
+        <SocketContext.Provider value={{ sendMessage }}>
             {children}
         </SocketContext.Provider>
     )

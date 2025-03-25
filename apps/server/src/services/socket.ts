@@ -25,6 +25,7 @@ class SocketService {
             console.log("New Socket connected", socket.id)
             socket.on("event:message", async ({message}:{message:string})=>{
                 console.log("New message received ",message)
+                
             })
         })
     }
