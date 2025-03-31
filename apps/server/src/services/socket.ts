@@ -26,8 +26,8 @@ class SocketService {
         console.log("Init Socket Service")
         this._io = new Server({
             cors:{
-                allowedHeaders:['*'],
-                origin:'*'
+            allowedHeaders:['*'],
+            origin:['*', 'https://scalable-chat-app-web-lyart.vercel.app']
             }
         })
         sub.subscribe("MESSAGES")
