@@ -38,7 +38,7 @@ export const SocketProvider:React.FC<SocketProviderProps> = ({children}) => {
     },[])
 
     useEffect(() => {
-        const _socket = io('https://scalable-chat-app-docs-orcin.vercel.app/');
+        const _socket = io('http://localhost:8000');
         setSocket(_socket);
 
         _socket.on('message',onMessageRec)

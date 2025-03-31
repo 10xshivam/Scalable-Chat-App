@@ -1,7 +1,5 @@
 import { Server } from "socket.io";
 import Redis from 'ioredis';
-import fs from 'fs';
-import path from 'path';
 import prismaClient from "./prisma";
 import { produceMessage } from "./kafka";
 import dotenv from 'dotenv';
@@ -26,8 +24,8 @@ class SocketService {
         console.log("Init Socket Service")
         this._io = new Server({
             cors:{
-            allowedHeaders:['*'],
-            origin:['*', 'https://scalable-chat-app-web-lyart.vercel.app']
+                allowedHeaders:['*'],
+                origin:'*'
             }
         })
         sub.subscribe("MESSAGES")
