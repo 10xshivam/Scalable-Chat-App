@@ -41,9 +41,10 @@ async function init() {
     // Enable CORS
     app.use(
         cors({
-            origin: "*",
+            origin: "https://scalable-chat-app-web-lyart.vercel.app", // Allow frontend origin
             methods: ["GET", "POST"],
-            allowedHeaders: ["*"],
+            allowedHeaders: ["Content-Type"],
+            credentials: true, // Important for WebSockets
         })
     );
 
