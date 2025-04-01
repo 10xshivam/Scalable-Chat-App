@@ -23,10 +23,11 @@ class SocketService {
     constructor(){
         console.log("Init Socket Service")
         this._io = new Server({
-            cors:{
-                allowedHeaders:['*'],
-                origin:'*'
-            }
+            cors: {
+                origin: "*",
+                methods: ["GET", "POST"],
+                allowedHeaders: ["*"],
+              },
         })
         sub.subscribe("MESSAGES")
     }
