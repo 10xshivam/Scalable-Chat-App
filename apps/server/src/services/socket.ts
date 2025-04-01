@@ -24,9 +24,9 @@ class SocketService {
         console.log("Init Socket Service")
         this._io = new Server({
             cors: {
-                origin: "https://scalable-chat-app-web-lyart.vercel.app", // Allow frontend origin
+                origin: "https://scalable-chat-app-web-lyart.vercel.app", // Allow Frontend
                 methods: ["GET", "POST"],
-                allowedHeaders: ["*"],
+                allowedHeaders: ["Content-Type", "Authorization"],
                 credentials: true,
             },
         })
